@@ -1,5 +1,5 @@
 {
-  "enabled": false,
+  "enabled": true,
   "min_version": "0.1",
   "message": "This build is disabled. Contact aster3 on Discord",
   "update_message": "This version is outdated. Contact aster3 on Discord."
