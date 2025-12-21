@@ -1,6 +1,6 @@
 {
   "enabled": true,
-  "min_version": "0.9",
-  "message": "This build is disabled.",
-  "update_message": "This version is outdated. Please download the latest version from Titus."
+  "min_version": "0.1",
+  "message": "This build is disabled. Contact aster3 on Discord",
+  "update_message": "This version is outdated. Contact aster3 on Discord."
 }
