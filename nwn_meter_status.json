@@ -1,5 +1,5 @@
 {
-  "enabled": true,
+  "enabled": false,
   "min_version": "0.9",
   "message": "This build is disabled.",
   "update_message": "This version is outdated. Please download the latest version from Titus."
