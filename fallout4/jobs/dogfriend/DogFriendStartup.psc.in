@@ -1,0 +1,13 @@
+Scriptname DogFriendStartup extends Quest
+
+Event OnQuestInit()
+    Utility.Wait(2.0)
+    Actor playerRef = Game.GetPlayer()
+    Form whistle = Game.GetFormFromFile(0x__WHISTLE_FORMID__, "DogFriend.esp")
+    If playerRef != None && whistle != None
+        If playerRef.GetItemCount(whistle) < 1
+            playerRef.AddItem(whistle, 1, True)
+            Debug.Notification("Dog Whistle added to inventory")
+        EndIf
+    EndIf
+EndEvent
