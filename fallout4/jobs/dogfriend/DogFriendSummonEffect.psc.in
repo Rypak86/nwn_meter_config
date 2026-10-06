@@ -1,0 +1,78 @@
+Scriptname DogFriendSummonEffect extends ActiveMagicEffect
+
+Event OnEffectStart(Actor akTarget, Actor akCaster)
+    Actor playerRef = Game.GetPlayer()
+    If playerRef == None
+        Return
+    EndIf
+
+    Form whistle = Game.GetFormFromFile(0x__WHISTLE_FORMID__, "DogFriend.esp")
+    If whistle != None
+        playerRef.AddItem(whistle, 1, True)
+    EndIf
+
+    Form dogBase = Game.GetFormFromFile(0x00176337, "Fallout4.esm")
+    If dogBase == None
+        Debug.Notification("Dog Friend: dog base not found")
+        Return
+    EndIf
+
+    Actor dog1 = playerRef.PlaceAtMe(dogBase, 1, False, True, True) as Actor
+    Actor dog2 = playerRef.PlaceAtMe(dogBase, 1, False, True, True) as Actor
+    Actor dog3 = playerRef.PlaceAtMe(dogBase, 1, False, True, True) as Actor
+
+    PrepareDog(dog1, playerRef, -900.0, -300.0)
+    PrepareDog(dog2, playerRef, -1050.0, 0.0)
+    PrepareDog(dog3, playerRef, -900.0, 300.0)
+
+    Debug.Notification("Dog pack called")
+
+    Int tick = 0
+    While tick < 90
+        Utility.Wait(2.0)
+        MaintainDog(dog1, playerRef)
+        MaintainDog(dog2, playerRef)
+        MaintainDog(dog3, playerRef)
+        tick += 1
+    EndWhile
+
+    DismissDog(dog1)
+    DismissDog(dog2)
+    DismissDog(dog3)
+EndEvent
+
+Function PrepareDog(Actor dog, Actor playerRef, Float xOffset, Float yOffset)
+    If dog == None
+        Return
+    EndIf
+    dog.MoveTo(playerRef, xOffset, yOffset, 0.0, True)
+    dog.SetPlayerTeammate(True, False, False)
+    dog.SetProtected(True)
+    dog.SetNotShowOnStealthMeter(True)
+    dog.Enable(False)
+    dog.EvaluatePackage(True)
+    dog.PathToReference(playerRef, 1.0)
+EndFunction
+
+Function MaintainDog(Actor dog, Actor playerRef)
+    If dog == None || dog.IsDead()
+        Return
+    EndIf
+    Float d = playerRef.GetDistance(dog)
+    If d > 2500.0
+        dog.MoveTo(playerRef, -350.0, 0.0, 0.0, True)
+        dog.EvaluatePackage(True)
+    ElseIf d > 450.0 && !dog.IsInCombat()
+        dog.PathToReference(playerRef, 1.0)
+    EndIf
+EndFunction
+
+Function DismissDog(Actor dog)
+    If dog == None
+        Return
+    EndIf
+    dog.StopCombat()
+    dog.SetPlayerTeammate(False, False, False)
+    dog.Disable(True)
+    dog.Delete()
+EndFunction
