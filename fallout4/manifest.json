@@ -1,0 +1,12 @@
+{
+  "protocol": 1,
+  "build_id": "dogfriend-mvp-001",
+  "entrypoint": "jobs/dogfriend/BUILD_DogFriend.ps1",
+  "files": [
+    "jobs/dogfriend/BUILD_DogFriend.ps1",
+    "jobs/dogfriend/DogFriend_Build.pas",
+    "jobs/dogfriend/DogFriendStartup.psc.in",
+    "jobs/dogfriend/DogFriendSummonEffect.psc.in"
+  ],
+  "output": "C:\\Fallout4_Modding\\VortexReady\\DogFriend_MVP_Vortex.zip"
+}
